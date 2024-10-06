@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+  const root = document.getElementById("root");
+  let counter = 0;
+
+  function countUp() {
+    counter = counter + 1;
+    render(); // 변수가 변할 때마다 리렌더링
+  }
+
+  function render() {
+    ReactDOM.render(<Container />, root)
+  }
+
+  const Container = () => (
+          <div>
+            <h3>Total clicks: {counter}</h3>
+            <button onClick={countUp}>Click me</button>
+          </div>
+  );
+
+  render(); // 렌더링 한번만 진행
+
+</script>
+</html>

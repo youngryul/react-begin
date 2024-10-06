@@ -8,25 +8,24 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
         const root = document.getElementById("root");
-        /* JSX way : 기존에 html 형식과 유사 */
-        const Title = () => (
-            <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>Hello I'm a span</h3>
-        )
 
-        const Button = () => (
-            <button style={{backgroundColor : "tomato"}}
-                    onClick={() => console.log("I'm clicked")}>Click me</button>
-        )
+        function App(){
+            let [counter, setCounter] = React.useState(0); // React.useState() => (data, function) 값을 제공
 
+            // useState 안의 function은 자동으로 리렌더링을 해준다.
+            const onClick = () => {
+                setCounter(counter + 1);
+            }
 
-        // html 태그, property(id, style 등), 내용
-        // custom html은 대문자로 적기 !!
-        const Container = () => (
-            <div>
-                <Title />
-                <Button />
-            </div>
-        );
-        ReactDOM.render(<Container />, root)
+            return (
+                <div>
+                    <h3>Total clicks: {counter}</h3>
+                    <button onClick={onClick}>Click me</button>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App/>, root);
+
     </script>
 </html>
