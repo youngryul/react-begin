@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🔥 Calculator 🔥</title>
+    <meta charset="UTF-8" />
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css"
+    />
+    <style>
+        body {
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+    function App() {
+        const [index, onIndex] = React.useState('none');
+        const [first, onFirst] = React.useState();
+        const [second, onSecond] = React.useState();
+        const [flipped, onFlip] = React.useState(false);
+        let result = 0;
+
+        const onSelect = (event) => {
+            onIndex(event.target.value);
+        };
+        const onFirstChange = (event) => {
+            onFirst(event.target.value);
+        };
+        const onSecondChange = (event) => {
+            onSecond(event.target.value);
+        };
+        const onCalculate = () => {
+            switch (index) {
+                case 'plus':
+                    onFlip(Number(first) + Number(second));
+                    break;
+                case 'minus':
+                    onFlip(Number(first) - Number(second));
+                    break;
+                case 'divide':
+                    onFlip(Math.floor(Number(first) / Number(second)));
+                    break;
+                case 'multiply':
+                    onFlip(Number(first) * Number(second));
+                    break;
+            }
+        };
+
+        return (
+            <div className="container">
+                <h1>🔥 Calculator 🔥</h1>
+                <input
+                    value={first}
+                    type="number"
+                    placeholder="👉🏻 Write a number..."
+                    onChange={onFirstChange}
+                ></input>
+                <input
+                    value={second}
+                    type="number"
+                    placeholder="👉🏻 And another one..."
+                    onChange={onSecondChange}
+                ></input>
+                <select value={index} onChange={onSelect}>
+                    <option value="none">👉🏻Select operation</option>
+                    <option value="plus">+</option>
+                    <option value="minus">-</option>
+                    <option value="divide">/</option>
+                    <option value="multiply">*</option>
+                </select>
+                <button onClick={onCalculate}>Calculate</button>
+                <h1>{flipped != 0 ? 'The result is: ' + flipped : null}</h1>
+            </div>
+        );
+    }
+
+    const root = document.getElementById('root');
+    ReactDOM.render(<App />, root);
+</script>
+</html>
