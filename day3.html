@@ -1,3 +1,11 @@
+<!-- 10.14 코드 리뷰 리팩토링
+ 1. 리액트에서 on ~ 함수명 대신 set ~ 함수명 사용 권장
+ 2. 나누기 진행 시 버그 발생 수정
+ 3. result 변수명 사용 안함 -> 제거
+
+ -> 다른 사람들 리뷰 참고 : validation 처리 신경쓰기
+-->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,34 +32,33 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
     function App() {
-        const [index, onIndex] = React.useState('none');
-        const [first, onFirst] = React.useState();
-        const [second, onSecond] = React.useState();
-        const [flipped, onFlip] = React.useState(false);
-        let result = 0;
+        const [index, setIndex] = React.useState('none');
+        const [first, setFirst] = React.useState();
+        const [second, setSecond] = React.useState();
+        const [flipped, setFlip] = React.useState(false);
 
-        const onSelect = (event) => {
-            onIndex(event.target.value);
+        const setSelect = (event) => {
+            setIndex(event.target.value);
         };
-        const onFirstChange = (event) => {
-            onFirst(event.target.value);
+        const setFirstChange = (event) => {
+            setFirst(event.target.value);
         };
-        const onSecondChange = (event) => {
-            onSecond(event.target.value);
+        const setSecondChange = (event) => {
+            setSecond(event.target.value);
         };
-        const onCalculate = () => {
+        const setCalculate = () => {
             switch (index) {
                 case 'plus':
-                    onFlip(Number(first) + Number(second));
+                    setFlip(Number(first) + Number(second));
                     break;
                 case 'minus':
-                    onFlip(Number(first) - Number(second));
+                    setFlip(Number(first) - Number(second));
                     break;
                 case 'divide':
-                    onFlip(Math.floor(Number(first) / Number(second)));
+                    setFlip(Number(first) / Number(second));
                     break;
                 case 'multiply':
-                    onFlip(Number(first) * Number(second));
+                    setFlip(Number(first) * Number(second));
                     break;
             }
         };
@@ -63,22 +70,22 @@
                     value={first}
                     type="number"
                     placeholder="👉🏻 Write a number..."
-                    onChange={onFirstChange}
+                    onChange={setFirstChange}
                 ></input>
                 <input
                     value={second}
                     type="number"
                     placeholder="👉🏻 And another one..."
-                    onChange={onSecondChange}
+                    onChange={setSecondChange}
                 ></input>
-                <select value={index} onChange={onSelect}>
+                <select value={index} onChange={setSelect}>
                     <option value="none">👉🏻Select operation</option>
                     <option value="plus">+</option>
                     <option value="minus">-</option>
                     <option value="divide">/</option>
                     <option value="multiply">*</option>
                 </select>
-                <button onClick={onCalculate}>Calculate</button>
+                <button onClick={setCalculate}>Calculate</button>
                 <h1>{flipped != 0 ? 'The result is: ' + flipped : null}</h1>
             </div>
         );
